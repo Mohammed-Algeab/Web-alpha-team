@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ══════════════════════════════════════════
+         SEO الأساسي — عدّل هذه القيم مباشرة
+         هذا ما يراه Google فوراً قبل تشغيل JS
+    ══════════════════════════════════════════ -->
+
+    <!-- العنوان: يظهر في نتائج Google وفي تبويب المتصفح -->
+    <title>فريق ألفا للتعريب — تعريب الألعاب والروايات البصرية العربية</title>
+
+    <!-- الوصف: النص الظاهر تحت الرابط في نتائج Google (160 حرف كحد أقصى) -->
+    <meta name="description" content="فريق ألفا للتعريب — نُعرِّب الألعاب والروايات البصرية إلى اللغة العربية. تعريب سلسلة Science Adventure وغيرها من الألعاب الشهيرة." />
+
+    <!-- الكلمات المفتاحية: Google تتجاهلها، لكن محركات أخرى تستخدمها -->
+    <meta name="keywords" content="تعريب ألعاب, روايات بصرية عربية, فريق ألفا, Science Adventure, Steins Gate عربي, تعريب عربي, ألعاب مترجمة" />
+
+    <!-- المؤلف والروبوتات -->
+    <meta name="author" content="فريق ألفا للتعريب" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- اللغة -->
+    <meta http-equiv="content-language" content="ar" />
+
+    <!-- الرابط الأساسي — يُستبدل تلقائياً من VITE_SITE_URL في web/.env عند البناء -->
+    <link rel="canonical" href="%VITE_SITE_URL%/" />
+
+    <!-- ══════════════════════════════════════════
+         Open Graph — معاينة الروابط في
+         Discord / Telegram / Twitter / WhatsApp
+    ══════════════════════════════════════════ -->
+
+    <meta property="og:type"        content="website" />
+    <meta property="og:locale"      content="ar_SA" />
+    <meta property="og:site_name"   content="فريق ألفا للتعريب" />
+    <meta property="og:url"         content="%VITE_SITE_URL%/" />
+    <meta property="og:title"       content="فريق ألفا للتعريب — تعريب الألعاب العربية" />
+    <meta property="og:description" content="نُعرِّب الألعاب والروايات البصرية إلى اللغة العربية. تعريب سلسلة Science Adventure وغيرها." />
+    <meta property="og:image"       content="%VITE_SITE_URL%/images/logo.png" />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- ══════════════════════════════════════════
+         Twitter Card
+    ══════════════════════════════════════════ -->
+
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="فريق ألفا للتعريب" />
+    <meta name="twitter:description" content="نُعرِّب الألعاب والروايات البصرية إلى اللغة العربية." />
+    <meta name="twitter:image"       content="%VITE_SITE_URL%/images/logo.png" />
+
+    <!-- ══════════════════════════════════════════
+         Structured Data (JSON-LD)
+         هذا يساعد Google تفهم موقعك بشكل أعمق
+         وقد يظهر في نتائج البحث الغنية (Rich Results)
+    ══════════════════════════════════════════ -->
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "فريق ألفا للتعريب",
+      "alternateName": "Alpha Team",
+      "url": "%VITE_SITE_URL%",
+      "logo": "%VITE_SITE_URL%/images/logo.png",
+      "description": "فريق متخصص في تعريب الألعاب والروايات البصرية إلى اللغة العربية",
+      "inLanguage": "ar",
+      "sameAs": [
+        "https://t.me/AlphaTeamAr"
+      ]
+    }
+    </script>
+
+    <!-- ══════════════════════════════════════════
+         الأيقونة والخطوط
+    ══════════════════════════════════════════ -->
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts: Cairo + Tajawal — أبقِ هذا هنا لتحميل سريع -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Umami Analytics — أزل التعليق وضع ID الحقيقي عند الجاهزية -->
+    <!-- <script defer src="https://cloud.umami.is/script.js" data-website-id="YOUR_UMAMI_WEBSITE_ID"></script> -->
+  </body>
+</html>

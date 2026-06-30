@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="12" fill="#1a1208"/>
+  <!-- Gear ring -->
+  <circle cx="32" cy="32" r="26" fill="none" stroke="#C8A870" stroke-width="3" stroke-dasharray="8 4"/>
+  <!-- Inner circle -->
+  <circle cx="32" cy="32" r="18" fill="none" stroke="#C8A870" stroke-width="1.5"/>
+  <!-- Alpha α symbol -->
+  <text x="32" y="39" font-family="serif" font-size="22" font-weight="bold"
+        fill="#C8A870" text-anchor="middle">α</text>
+</svg>

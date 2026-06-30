@@ -1,0 +1,137 @@
+/*! Alpha Team Giscus Theme — Light Mode
+ * Custom light theme for giscus matching Alpha Team's identity
+ * Warm beige background with bronze accents
+ */
+
+main {
+  /* Syntax highlighting — light mode adapted */
+  --color-prettylights-syntax-comment: #6e7781;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-entity: #8250df;
+  --color-prettylights-syntax-storage-modifier-import: #24292f;
+  --color-prettylights-syntax-entity-tag: #116329;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-variable: #953800;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-string-regexp: #116329;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-markup-heading: #B8934A;
+  --color-prettylights-syntax-markup-italic: #24292f;
+  --color-prettylights-syntax-markup-bold: #24292f;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-inserted-text: #116329;
+  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-ignored-text: #eaeef2;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-brackethighlighter-angle: #57606a;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #8c959f;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+
+  /* Alpha Team Light UI Tokens — bronze-on-beige */
+  --color-btn-text: #0E0C0A;
+  --color-btn-bg: #FFFFFF;
+  --color-btn-border: rgba(14, 12, 10, 0.12);
+  --color-btn-shadow: 0 1px 0 rgba(14, 12, 10, 0.04);
+  --color-btn-inset-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  --color-btn-hover-bg: #F5F0E8;
+  --color-btn-hover-border: rgba(14, 12, 10, 0.18);
+  --color-btn-active-bg: #EDE8E0;
+  --color-btn-active-border: rgba(14, 12, 10, 0.22);
+  --color-btn-selected-bg: #F5F0E8;
+  --color-btn-primary-text: #FFFFFF;
+  --color-btn-primary-bg: #B8934A;
+  --color-btn-primary-border: rgba(14, 12, 10, 0.12);
+  --color-btn-primary-shadow: 0 1px 0 rgba(14, 12, 10, 0.08);
+  --color-btn-primary-inset-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --color-btn-primary-hover-bg: #C8A870;
+  --color-btn-primary-hover-border: rgba(14, 12, 10, 0.18);
+  --color-btn-primary-selected-bg: #A68240;
+  --color-btn-primary-selected-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.12);
+  --color-btn-primary-disabled-text: rgba(255, 255, 255, 0.75);
+  --color-btn-primary-disabled-bg: rgba(184, 147, 74, 0.55);
+  --color-btn-primary-disabled-border: rgba(14, 12, 10, 0.08);
+  --color-action-list-item-default-hover-bg: rgba(200, 168, 112, 0.12);
+  --color-segmented-control-bg: #EDE8E0;
+  --color-segmented-control-button-bg: #FFFFFF;
+  --color-segmented-control-button-selected-border: #B8AFA0;
+
+  /* Foreground / Canvas — Alpha light palette */
+  --color-fg-default: #0E0C0A;
+  --color-fg-muted: #6B6560;
+  --color-fg-subtle: #7d7568;
+  --color-canvas-default: #F5F0E8;
+  --color-canvas-overlay: #FFFFFF;
+  --color-canvas-inset: #EDE8E0;
+  --color-canvas-subtle: #FFFFFF;
+  --color-border-default: #D4CFC8;
+  --color-border-muted: #E0DBD4;
+  --color-neutral-muted: rgba(14, 12, 10, 0.06);
+  --color-accent-fg: #B8934A;
+  --color-accent-emphasis: #B8934A;
+  --color-accent-muted: rgba(184, 147, 74, 0.25);
+  --color-accent-subtle: rgba(184, 147, 74, 0.1);
+  --color-success-fg: #1a7f37;
+  --color-attention-fg: #9a6700;
+  --color-attention-muted: rgba(212, 167, 44, 0.35);
+  --color-attention-subtle: #fff8c5;
+  --color-danger-fg: #d1242f;
+  --color-danger-muted: rgba(255, 129, 130, 0.35);
+  --color-danger-subtle: #ffebe9;
+  --color-primer-shadow-inset: inset 0 1px 0 rgba(212, 207, 200, 0.2);
+  --color-scale-gray-1: #EDE8E0;
+  --color-scale-blue-8: #e8f0fe;
+
+  /* Social reactions */
+  --color-social-reaction-bg-hover: var(--color-scale-gray-1);
+  --color-social-reaction-bg-reacted-hover: rgba(184, 147, 74, 0.12);
+}
+
+/* Links in comments — bronze */
+main a {
+  color: #B8934A !important;
+}
+
+main a:hover {
+  color: #C8A870 !important;
+}
+
+/* Rounded corners matching Alpha design */
+main .gsc-comment-box,
+main .gsc-timeline > .gsc-comment,
+main .gsc-reactions-count,
+main .gsc-social-reaction-summary-item {
+  border-radius: 12px !important;
+}
+
+/* Scrollbar */
+main ::-webkit-scrollbar {
+  width: 6px;
+}
+main ::-webkit-scrollbar-track {
+  background: #F5F0E8;
+}
+main ::-webkit-scrollbar-thumb {
+  background: #D4CFC8;
+  border-radius: 3px;
+}
+main ::-webkit-scrollbar-thumb:hover {
+  background: #B8AFA0;
+}
+
+/* Loading states */
+main .pagination-loader-container {
+  background-image: url("https://github.com/images/modules/pulls/progressive-disclosure-line.svg");
+}
+
+main .gsc-loading-image {
+  background-image: url("https://github.githubassets.com/images/mona-loading-default.gif");
+}

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>التعليقات</title>
+    <!--
+      ponytail: هذه صفحة مستقلة تماماً عن index.html الرئيسي — مخصصة فقط
+      لتُعرض داخل WebView في team-apk (React Native). لا تحمّل useData() أو
+      Header/Footer أو أي بيانات الموقع الكاملة؛ فقط مكوّن giscus خفيف.
+      الوصول: %VITE_SITE_URL%/embed-comments.html?term=project:123&theme=dark
+    -->
+  </head>
+  <body>
+    <div id="embed-root"></div>
+    <script type="module" src="/src/embed-comments.tsx"></script>
+  </body>
+</html>
