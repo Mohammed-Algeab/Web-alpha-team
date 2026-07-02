@@ -55,7 +55,7 @@ jobs:
         working-directory: web
         run: pnpm install --frozen-lockfile
 
-      - name: Build (يشمل postbuild: copy-functions + generate-pages)
+      - name: "Build (يشمل postbuild: copy-functions + generate-pages)"
         working-directory: web
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
