@@ -16,6 +16,13 @@ name: Build & Deploy (with static SEO pages)
 #     المستودع) إن تغيّر أي شيء.
 #   - ينشر dist/ فعلياً إلى Cloudflare Pages عبر الإجراء الرسمي
 #     cloudflare/pages-action (يستبدل الرفع اليدوي لمجلد dist/).
+#
+# ponytail: المشروع يُدار محلياً بـpnpm (رغم وجود package-lock.json قديم/
+# متبقٍّ من npm بالمستودع — لا تستخدمه، لأن وجود لوك فايل من أداتين مختلفتين
+# بنفس الوقت يسبب لبساً: pnpm يتجاهل package-lock.json تماماً ويعتمد فقط
+# على pnpm-lock.yaml). لهذا الـworkflow هنا يستخدم pnpm + --frozen-lockfile،
+# ويعتمد أن pnpm-lock.yaml مرفوع فعلياً للمستودع (راجع القسم 6 في
+# SETUP-GUIDE.md لخطوات توليده ورفعه، وحذف package-lock.json القديم).
 
 on:
   repository_dispatch:

@@ -2,21 +2,22 @@
 
 هذا الدليل خاص بمستودع **web** (`Web-alpha-team`) فقط. مشروع **pwa** لم يُلمَس إطلاقًا.
 
+> ⚠️ تصحيح مهم: جذر مستودع `Web-alpha-team` هو نفسه جذر المشروع مباشرة (فيه `package.json`، `src/`، إلخ) — **لا يوجد مجلد فرعي اسمه `web/` بداخل المستودع نفسه**. اسم `web.zip` كان فقط تسمية للملف المرفوع، وليس بنية المجلدات الفعلية على GitHub. كل المسارات بالأسفل هي من جذر المستودع مباشرة.
+
 ---
 
 ## 1) أين تضع كل ملف داخل مستودعك
 
 ```
-web/
+(جذر المستودع Web-alpha-team)/
 ├── src/main.tsx                          ← استبدل بالكامل (BrowserRouter + إصلاح href)
 ├── src/pages/ProjectDetailPage.tsx       ← استبدل بالكامل (رابط مشاركة مباشر بدل /share/)
 ├── src/pages/PostDetailPage.tsx          ← استبدل بالكامل (نفس السبب)
 ├── scripts/generate-pages.mjs            ← ملف جديد، ضعه بجانب scripts/copy-functions.mjs
+├── pnpm-workspace.yaml                   ← استبدل بالكامل (إضافة packages: لحل خطأ pnpm install بـ CI)
 ├── package.json                          ← عدّل فقط سطر "postbuild" (راجع package-patch/scripts-section.json)
-└── .github/workflows/generate-pages.yml  ← ملف جديد (المسار من جذر المستودع، ليس داخل web/)
+└── .github/workflows/generate-pages.yml  ← ملف جديد، بجذر المستودع كما هو بالفعل
 ```
-
-> ⚠️ `.github/workflows/` يجب أن يكون في **جذر المستودع** (بجانب مجلد `web/`)، وليس داخل `web/`، لأن GitHub Actions يبحث عنه هناك فقط.
 
 بعد وضع الملفات، افتح `package.json` وغيّر سطر واحد فقط:
 ```json
@@ -94,7 +95,7 @@ web/
 ## 4) اختبار محلي قبل الرفع (اختياري لكن يُنصح به)
 
 ```bash
-cd web
+# من جذر المستودع مباشرة (لا يوجد مجلد web/ لتدخل إليه)
 pnpm install
 pnpm build
 # افتح dist/projects/<ضع أي id حقيقي هنا>/index.html في المتصفح مباشرة
@@ -112,7 +113,26 @@ cat dist/projects/<id>/index.html | head -50
 
 ---
 
-## 6) حدود هذا الحل (بصراحة)
+## 6) ولّد pnpm-lock.yaml وارفعه (وتخلّص من package-lock.json القديم)
+
+مستودعك فيه حاليًا `package-lock.json` (بقايا من npm)، لكنك فعليًا تستخدم **pnpm** محليًا ولا يوجد `pnpm-lock.yaml`. وجود لوك فايل من أداة غير التي تستخدمها فعليًا لا يفيد شيء، والأفضل تنظيفه:
+
+```bash
+# من جذر المشروع محليًا:
+rm -f package-lock.json
+pnpm install          # هذا يولّد pnpm-lock.yaml بناءً على package.json الحالي
+git add pnpm-lock.yaml
+git rm package-lock.json   # لو كان مرفوعاً على GitHub فعلاً
+git commit -m "chore: التحول الكامل لـpnpm — إضافة pnpm-lock.yaml وحذف package-lock.json"
+git push
+```
+
+بعد رفع `pnpm-lock.yaml`، الـ workflow (`pnpm install --frozen-lockfile`) سيشتغل بشكل حتمي 100% — يثبّت بالضبط نفس نسخ الحزم عندك محليًا، بدون أي تخمين.
+
+---
+
+## 7) حدود هذا الحل (بصراحة)
+
 
 - الصفحات المولّدة تشمل فقط **تفاصيل المشروع/المنشور** (`/projects/:id`, `/blog/:id`) — بقية الصفحات (`/projects`, `/blog`, `/about`...) تبقى SPA عادية تُقرأ بواسطة React، وهذا كافٍ لأن جوجل ينفّذ JS لمعظم الحالات، والمحتوى الأهم أصلاً بصفحات التفاصيل.
 - أي **تعديل يدوي** على ملف داخل `generated-pages/` سيُستبدل تلقائيًا في أول تشغيل تالٍ للـworkflow. لو تبي عنوان/وصف SEO مخصص فعليًا، أضف أعمدة مثل `meta_title` و `meta_description` في جدولي `projects`/`posts` في Supabase، واستخدمها داخل `generate-pages.mjs` بدل الحقول الافتراضية (تعديل بسيط لسطرين في السكربت أقدر أساعدك فيه لاحقًا لو حبيت).
