@@ -6,7 +6,7 @@ name: Build & Deploy (with static SEO pages)
 #      (راجع دليل الإعداد SETUP-GUIDE.md لخطوات ضبط الـWebhook في Supabase).
 #   2) workflow_dispatch — تشغيل يدوي من تبويب Actions في GitHub لو حبيت
 #      تعيد التوليد يدوياً دون انتظار تعديل بالبيانات.
-#   3) push على main — أي تعديل كود عادي (يبني وينشر كالمعتاد + يولّد
+#   3) push على master — أي تعديل كود عادي (يبني وينشر كالمعتاد + يولّد
 #      صفحات محدّثة تلقائياً كأثر جانبي مفيد).
 #
 # ماذا يفعل:
@@ -29,7 +29,7 @@ on:
     types: [supabase-content-updated]
   workflow_dispatch: {}
   push:
-    branches: [main]
+    branches: [master]
 
 # يمنع تشغيل نسختين من الـworkflow بنفس الوقت (تعديلين متتاليين سريعين على
 # Supabase مثلاً) — كل تشغيل جديد يلغي/ينتظر السابق حسب الحاجة.
@@ -42,6 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write # مطلوب حتى يقدر الـworkflow يعمل commit لـgenerated-pages/
+      deployments: write # مطلوب من cloudflare/pages-action لتسجيل GitHub Deployment
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -88,4 +89,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: ${{ secrets.CLOUDFLARE_PAGES_PROJECT_NAME }}
           directory: dist
+          branch: master
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
