@@ -1,0 +1,87 @@
+name: Build & Deploy (with static SEO pages)
+
+# ponytail: هذا الـworkflow يشتغل تلقائياً في حالتين:
+#   1) repository_dispatch بنوع "supabase-content-updated" — يُطلقه Supabase
+#      Database Webhook فور إضافة/تعديل صف في جدول projects أو posts
+#      (راجع دليل الإعداد SETUP-GUIDE.md لخطوات ضبط الـWebhook في Supabase).
+#   2) workflow_dispatch — تشغيل يدوي من تبويب Actions في GitHub لو حبيت
+#      تعيد التوليد يدوياً دون انتظار تعديل بالبيانات.
+#   3) push على main — أي تعديل كود عادي (يبني وينشر كالمعتاد + يولّد
+#      صفحات محدّثة تلقائياً كأثر جانبي مفيد).
+#
+# ماذا يفعل:
+#   - يبني المشروع (pnpm build) والذي يشغّل تلقائياً postbuild
+#     (copy-functions.mjs + generate-pages.mjs) — راجع package.json.
+#   - يعمل commit لمجلد generated-pages/ (نسخة HTML قابلة للمراجعة داخل
+#     المستودع) إن تغيّر أي شيء.
+#   - ينشر dist/ فعلياً إلى Cloudflare Pages عبر الإجراء الرسمي
+#     cloudflare/pages-action (يستبدل الرفع اليدوي لمجلد dist/).
+
+on:
+  repository_dispatch:
+    types: [supabase-content-updated]
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+
+# يمنع تشغيل نسختين من الـworkflow بنفس الوقت (تعديلين متتاليين سريعين على
+# Supabase مثلاً) — كل تشغيل جديد يلغي/ينتظر السابق حسب الحاجة.
+concurrency:
+  group: build-deploy
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # مطلوب حتى يقدر الـworkflow يعمل commit لـgenerated-pages/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install dependencies
+        working-directory: web
+        run: pnpm install --frozen-lockfile
+
+      - name: Build (يشمل postbuild: copy-functions + generate-pages)
+        working-directory: web
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_SITE_URL: ${{ secrets.VITE_SITE_URL }}
+          VITE_PWA_URL: ${{ secrets.VITE_PWA_URL }}
+        run: pnpm build
+
+      - name: Commit generated-pages/ إن تغيّر شيء
+        working-directory: web
+        run: |
+          git config user.name "alpha-team-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add generated-pages/
+          if git diff --cached --quiet; then
+            echo "لا تغييرات في generated-pages/ — تخطّي الـcommit."
+          else
+            git commit -m "chore: تحديث صفحات SEO المولّدة تلقائياً [skip ci]"
+            git push
+          fi
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ secrets.CLOUDFLARE_PAGES_PROJECT_NAME }}
+          directory: web/dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

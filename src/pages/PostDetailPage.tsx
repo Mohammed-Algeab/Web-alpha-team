@@ -74,7 +74,7 @@ export default function PostDetailPage({ posts }: PostDetailPageProps) {
         title={post.title}
         description={post.excerpt}
         image={undefined}
-        url={`${import.meta.env.VITE_SITE_URL}/share/blog/${post.id}`}
+        url={`${import.meta.env.VITE_SITE_URL}/blog/${post.id}`}
         type="article"
       />
 
@@ -100,7 +100,7 @@ export default function PostDetailPage({ posts }: PostDetailPageProps) {
                     {new Date(post.date).toLocaleDateString('en-US')}
                   </span>
                 </div>
-                <CopyLinkButton shareUrl={`${import.meta.env.VITE_SITE_URL}/share/blog/${post.id}`} />
+                <CopyLinkButton shareUrl={`${import.meta.env.VITE_SITE_URL}/blog/${post.id}`} />
               </div>
               <h1
                 className="text-2xl sm:text-3xl font-bold mb-4"

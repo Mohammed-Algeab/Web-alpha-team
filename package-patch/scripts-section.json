@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "postbuild": "node scripts/copy-functions.mjs && node scripts/generate-pages.mjs",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  }
+}

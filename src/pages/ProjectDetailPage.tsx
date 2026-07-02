@@ -77,7 +77,7 @@ export default function ProjectDetailPage({ projects, posts, changelogs }: Proje
         title={project.name}
         description={project.description}
         image={project.cover}
-        url={`${import.meta.env.VITE_SITE_URL}/share/projects/${project.id}`}
+        url={`${import.meta.env.VITE_SITE_URL}/projects/${project.id}`}
         type="article"
       />
 
@@ -166,7 +166,7 @@ export default function ProjectDetailPage({ projects, posts, changelogs }: Proje
                     <ExternalLink size={14} />
                   </a>
                 )}
-                <CopyLinkButton shareUrl={`${import.meta.env.VITE_SITE_URL}/share/projects/${project.id}`} />
+                <CopyLinkButton shareUrl={`${import.meta.env.VITE_SITE_URL}/projects/${project.id}`} />
               </div>
             </div>
           </div>

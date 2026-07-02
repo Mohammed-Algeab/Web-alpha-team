@@ -4,7 +4,16 @@ initTheme();
 
 import { StrictMode, useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+// ponytail: تحوّل من HashRouter إلى BrowserRouter — أهم خطوة لجعل الموقع
+// "أكثر static" وقابلاً للفهرسة بشكل مثالي: روابط حقيقية (/projects/123)
+// بدل روابط hash (/#/projects/123) التي محركات البحث تتجاهل الجزء بعد #
+// عملياً. يعتمد هذا على أن Cloudflare Pages يقرأ public/_redirects (موجود
+// أصلاً: "/* /index.html 200") لإعادة توجيه أي مسار غير موجود كملف فعلي
+// إلى index.html — وهذا بالضبط ما يسمح للـSPA بالعمل مع BrowserRouter.
+// لصفحات /projects/:id و /blog/:id تحديداً: انظر scripts/generate-pages.mjs
+// — هذه الصفحات تُخدَّم كملفات HTML حقيقية مولّدة وقت البناء (أولوية أعلى
+// من قاعدة _redirects العامة)، وليس عبر React عند أول تحميل.
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useData } from '@/hooks/useData';
@@ -42,7 +51,7 @@ function NotFoundPage() {
           404
         </h1>
         <p className="mb-6">الصفحة غير موجودة</p>
-        <a href="#/" className="btn-bronze text-sm">العودة للرئيسية</a>
+        <a href="/" className="btn-bronze text-sm">العودة للرئيسية</a>
       </div>
     </div>
   );
