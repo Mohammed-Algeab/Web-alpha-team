@@ -52,11 +52,9 @@ jobs:
           version: 9
 
       - name: Install dependencies
-        working-directory: web
         run: pnpm install --frozen-lockfile
 
       - name: "Build (يشمل postbuild: copy-functions + generate-pages)"
-        working-directory: web
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
@@ -65,7 +63,6 @@ jobs:
         run: pnpm build
 
       - name: Commit generated-pages/ إن تغيّر شيء
-        working-directory: web
         run: |
           git config user.name "alpha-team-bot"
           git config user.email "actions@users.noreply.github.com"
@@ -83,5 +80,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: ${{ secrets.CLOUDFLARE_PAGES_PROJECT_NAME }}
-          directory: web/dist
+          directory: dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
